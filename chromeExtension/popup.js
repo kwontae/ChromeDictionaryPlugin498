@@ -1,8 +1,16 @@
 (function() {
     window.onload = function() {
         test("red");
-        document.getElementById("checkPage").onclick = function() {
-            let url = "https://od-api.oxforddictionaries.com/api/v1/entries/en/word";
+        document.getElementById("checkPage").onclick = APICall;
+    }
+
+    function test(color) {
+        document.getElementById("checkPage").style.backgroundColor = color;
+    }
+
+    function APICall(word) {
+        let textArea = document.getElementById("word");
+        let url = "https://od-api.oxforddictionaries.com/api/v1/entries/en/" + textArea.value;
             fetch(url, {
                 credentials: 'include', 
                 headers: {
@@ -12,19 +20,25 @@
               })
               .then(handleAPI)
               .catch(error)
-        }
-    }
-
-    function test(color) {
-        document.getElementById("checkPage").style.backgroundColor = color;
     }
 
     function handleAPI(responseJSON) {
         alert(JSON.stringify(responseJSON));
+        document.getElementById("definition").value = "";
+        document.getElementById("definition").value = JSON.stringify(responseJSON);
     }
 
     function error(message) {
         alert(message);
     }
+
+    function getword(info,tab) {;
+        APICall(info.selectionText);         
+    }
+    chrome.contextMenus.create({
+        title: "Search: %s", 
+        contexts:["selection"], 
+        onclick: getword,
+      });
 })();
 
