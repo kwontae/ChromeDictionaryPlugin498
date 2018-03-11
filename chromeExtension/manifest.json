@@ -2,7 +2,7 @@
     "manifest_version": 2,
   
     "name": "Simple Dictionary Plugin",
-    "description": "This extension will look up words using the Pearson Dictionary API",
+    "description": "This extension will look up words with the Pearson Dictionary API using the text box and button in the extension popup or will look up a highlighted word using right clicks and Dictionary.com",
     "version": "1.0",
   
     "browser_action": {
