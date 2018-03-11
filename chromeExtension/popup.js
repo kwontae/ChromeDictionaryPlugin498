@@ -3,14 +3,9 @@
     document.getElementById("checkPage").onclick = APICall;
   }
 
-  export function APICall(word) {
+  function APICall(word) {
     let textArea = document.getElementById("word");
-    let text = "";
-    if (word) {
-      text = word;
-    } else {
-      text = textArea.value + "";
-    }
+    let text = textArea.value + "";
     let url = "http://api.pearson.com/v2/dictionaries/wordwise/entries?headword=" + text.toLowerCase();
     fetch(url, {
       method: 'GET',
