@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
   
-    "name": "GTmetrix Analyzer Plugin",
-    "description": "This extension will analyze a page using GTmetrix",
+    "name": "Simple Dictionary Plugin",
+    "description": "This extension will look up words using the Pearson Dictionary API",
     "version": "1.0",
   
     "browser_action": {

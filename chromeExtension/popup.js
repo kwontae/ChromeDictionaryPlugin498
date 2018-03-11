@@ -1,11 +1,6 @@
 (function () {
   window.onload = function () {
-    test("red");
     document.getElementById("checkPage").onclick = APICall;
-  }
-
-  function test(color) {
-    document.getElementById("checkPage").style.backgroundColor = color;
   }
 
   function APICall(word) {
@@ -50,13 +45,17 @@
   }
 
   function getword(info, tab) {
-    ;
     APICall(info.selectionText);
   }
   chrome.contextMenus.create({
     title: "Search: %s",
-    contexts: ["selection"],
-    onclick: getword,
+    contexts: ["selection"]
   });
+
+  chrome.contextMenus.onClicked.addListener(
+    function() {
+      alert("hello");
+    }
+  )
 })();
 
