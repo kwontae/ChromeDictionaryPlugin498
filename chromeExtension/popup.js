@@ -30,7 +30,6 @@
 
   function handleAPI(responseJSON) {
     let def = document.getElementById("definition");
-    console.log(responseJSON);
     def.innerHTML = "<pre>";
     for (var i = 0; i < responseJSON.length; i++) {
       let obj = responseJSON[i];
