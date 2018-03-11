@@ -48,28 +48,5 @@
   function error(message) {
     alert(message);
   }
-
-  // chrome.contextMenus.create({
-  //   title: "Search: %s",
-  //   contexts: ["selection"],
-  //   onclick: getword
-  // });
-
-  // function getword(info, tab) {
-  //   chrome.tabs.create({
-  //     url: "popup.html",
-  //   });
-  //   // APICall(info.selectionText);
-  // }
-  // function getword(info,tab) {
-  //   console.log("Word " + info.selectionText + " was clicked.");
-  //   chrome.windows.create({'url': 'popup.html', 'type': 'popup'}, function(window) {
-  //   });          
-  // }
-  // chrome.contextMenus.create({
-  //   title: "Search: %s", 
-  //   contexts:["selection"], 
-  //   onclick: getword,
-  // });
 })();
 

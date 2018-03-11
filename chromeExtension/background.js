@@ -1,6 +1,7 @@
 function getword(info,tab) {
+  let site = "http://www.dictionary.com/browse/" + info.selectionText + "?s=t";
     chrome.tabs.create({  
-      url: "popup.html"
+      url: site
     });
   }
   chrome.contextMenus.create({
