@@ -1,44 +1,62 @@
-(function() {
-    window.onload = function() {
-        test("red");
-        document.getElementById("checkPage").onclick = APICall;
-    }
+(function () {
+  window.onload = function () {
+    test("red");
+    document.getElementById("checkPage").onclick = APICall;
+  }
 
-    function test(color) {
-        document.getElementById("checkPage").style.backgroundColor = color;
-    }
+  function test(color) {
+    document.getElementById("checkPage").style.backgroundColor = color;
+  }
 
-    function APICall(word) {
-        let textArea = document.getElementById("word");
-        let url = "https://od-api.oxforddictionaries.com/api/v1/entries/en/" + textArea.value;
-            fetch(url, {
-                credentials: 'include', 
-                headers: {
-                  'app_id': '6ee4c4be',
-                  'app_key': 'ab20d491303fd365a2f9e02a527580e6'
-                },
-              })
-              .then(handleAPI)
-              .catch(error)
-    }
+  function APICall(word) {
+    let textArea = document.getElementById("word");
+    let text = textArea.value + "";
+    let url = "http://api.pearson.com/v2/dictionaries/wordwise/entries?headword=" + text.toLowerCase();
+    fetch(url, {
+      method: 'GET',
+      mode: 'cors',
+      cache: 'default'
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(definitionData => {
+        handleAPI(definitionData.results);
+      })
+      .catch((errormsg) => {
+        error(errormsg);
+      })
+  }
 
-    function handleAPI(responseJSON) {
-        alert(JSON.stringify(responseJSON));
-        document.getElementById("definition").value = "";
-        document.getElementById("definition").value = JSON.stringify(responseJSON);
+  function handleAPI(responseJSON) {
+    let def = document.getElementById("definition");
+    def.innerHTML = "<pre>";
+    for (var i = 0; i < responseJSON.length; i++) {
+      let obj = responseJSON[i];
+      let headword = obj.headword;
+      let definition = obj.senses[0].definition;
+      let partOfSpeech = obj.part_of_speech;
+      if (partOfSpeech) {
+        def.innerHTML += ("Word: " + headword + "<br />" + "Part of Speech: " + partOfSpeech + "<br />" + "Definition: " + definition + "<br />");
+      } else {
+        def.innerHTML += ("Word: " + headword + "<br />" + "Definition: " + definition + "<br />");
+      }
     }
+    def.innerHTML += "</pre>";
+  }
 
-    function error(message) {
-        alert(message);
-    }
+  function error(message) {
+    alert(message);
+  }
 
-    function getword(info,tab) {;
-        APICall(info.selectionText);         
-    }
-    chrome.contextMenus.create({
-        title: "Search: %s", 
-        contexts:["selection"], 
-        onclick: getword,
-      });
+  function getword(info, tab) {
+    ;
+    APICall(info.selectionText);
+  }
+  chrome.contextMenus.create({
+    title: "Search: %s",
+    contexts: ["selection"],
+    onclick: getword,
+  });
 })();
 
