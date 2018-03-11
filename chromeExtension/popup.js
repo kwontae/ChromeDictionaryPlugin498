@@ -3,9 +3,14 @@
     document.getElementById("checkPage").onclick = APICall;
   }
 
-  function APICall(word) {
+  export function APICall(word) {
     let textArea = document.getElementById("word");
-    let text = textArea.value + "";
+    let text = "";
+    if (word) {
+      text = word;
+    } else {
+      text = textArea.value + "";
+    }
     let url = "http://api.pearson.com/v2/dictionaries/wordwise/entries?headword=" + text.toLowerCase();
     fetch(url, {
       method: 'GET',
@@ -44,18 +49,27 @@
     alert(message);
   }
 
-  function getword(info, tab) {
-    APICall(info.selectionText);
-  }
-  chrome.contextMenus.create({
-    title: "Search: %s",
-    contexts: ["selection"]
-  });
+  // chrome.contextMenus.create({
+  //   title: "Search: %s",
+  //   contexts: ["selection"],
+  //   onclick: getword
+  // });
 
-  chrome.contextMenus.onClicked.addListener(
-    function() {
-      alert("hello");
-    }
-  )
+  // function getword(info, tab) {
+  //   chrome.tabs.create({
+  //     url: "popup.html",
+  //   });
+  //   // APICall(info.selectionText);
+  // }
+  // function getword(info,tab) {
+  //   console.log("Word " + info.selectionText + " was clicked.");
+  //   chrome.windows.create({'url': 'popup.html', 'type': 'popup'}, function(window) {
+  //   });          
+  // }
+  // chrome.contextMenus.create({
+  //   title: "Search: %s", 
+  //   contexts:["selection"], 
+  //   onclick: getword,
+  // });
 })();
 

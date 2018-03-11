@@ -10,8 +10,12 @@
      "default_popup": "popup.html",
      "default_script": "popup.js"
     },
+    "background": { 
+      "scripts": ["background.js"]
+    },
     "permissions": [
      "activeTab",
      "contextMenus"
      ]
+     
   }
